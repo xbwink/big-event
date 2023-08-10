@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xb.mapper.ArticleMapper">
+
+    <select id="pageQuery" resultType="com.xb.vo.ArticleVo">
+        SELECT a.*,c.category_name FROM `article` a INNER JOIN category c ON a.category_id = c.id
+        <where>
+            <if test="categoryId != null and categoryId != ''">
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="state != null and state != ''">
+                and a.state = #{state}
+            </if>
+        </where>
+        and a.author_id = #{authId}
+        limit #{pageNo},#{pageSize}
+    </select>
+
+
+</mapper>
